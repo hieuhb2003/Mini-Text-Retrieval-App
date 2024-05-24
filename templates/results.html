@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Search Results</h1>
+    <ul>
+        {% for idx, (doc_idx, score) in enumerate(rankings) %}
+            <li>
+                <a href="{{ url_for('document', doc_idx=idx) }}">Document {{ doc_idx }}: Score {{ "%.4f"|format(score) }}</a>
+                <p>{{ corpus[doc_idx][:180] }}...</p>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('index') }}">Back to search</a>
+</body>
+</html>

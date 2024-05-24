@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document {{ doc_idx }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Document {{ doc_idx }}</h1>
+    <p><strong>Score:</strong> {{ "%.4f"|format(score) }}</p>
+    <p>{{ content }}</p>
+    <a href="{{ url_for('results') }}">Back to results</a>
+</body>
+</html>

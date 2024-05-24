@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Retrieval App</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Text Retrieval App</h1>
+    <form method="post">
+        <label for="query">Query:</label>
+        <input type="text" id="query" name="query" required>
+
+        <label for="processor">Processor:</label>
+        <select id="processor" name="processor">
+            <option value="BoW">BoW</option>
+            <option value="GloVe">GloVe</option>
+            <option value="Bert">Bert</option>
+        </select>
+
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>
