@@ -1,7 +1,7 @@
 import tkinter as tk
 from datasets import load_dataset
 from BoW import BoWProcessor
-from GLOVE import GloVeProcessor  # Import GloVeProcessor
+from GLOVE import GloVeProcessor
 from Bert_Model import BertProccessor
 
 class App(tk.Tk):
