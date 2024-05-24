@@ -45,15 +45,8 @@ class App(tk.Tk):
             processor = self.glove_processor
         else:
             processor = self.bert_processor
-        #processor = self.bow_processor if self.option_var.get() == "BoW" else self.glove_processor
         self.current_rankings = processor.ranking(query, topk)
         self.result_box.update(self.current_rankings, processor.corpus)
-    #
-    # def show_document(self, index):
-    #     processor = self.bow_processor if self.option_var.get() == "BoW" else self.glove_processor
-    #     doc_idx, score = self.current_rankings[index]
-    #     content = processor.corpus[doc_idx]
-    #     self.document_display.update(f"Document {doc_idx}", content, score)
 
     def show_document(self, index):
         if self.option_var.get() == "BoW":
