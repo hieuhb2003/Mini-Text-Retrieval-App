@@ -2,6 +2,7 @@ import tkinter as tk
 from datasets import load_dataset
 from BoW import BoWProcessor
 from GLOVE import GloVeProcessor  # Import GloVeProcessor
+from Bert_Model import BertProccessor
 
 class App(tk.Tk):
     def __init__(self):
@@ -16,7 +17,7 @@ class App(tk.Tk):
 
         self.option_var = tk.StringVar(value="BoW")
 
-        self.option_menu = tk.OptionMenu(self.left_frame, self.option_var, "BoW", "GloVe")
+        self.option_menu = tk.OptionMenu(self.left_frame, self.option_var, "BoW", "GloVe", "Bert")
         self.option_menu.pack(fill=tk.X, padx=5, pady=5)
 
         self.search_bar = SearchBar(self.left_frame, self.search)
@@ -32,21 +33,40 @@ class App(tk.Tk):
         dataset = load_dataset('ms_marco', 'v1.1')['test']  # Load a subset for demo purposes
         self.bow_processor = BoWProcessor(dataset)
         self.glove_processor = GloVeProcessor(dataset, 'GloVe_300.json')  # Update with correct path
-
+        self.bert_processor = BertProccessor(dataset)
         # Store the current rankings
         self.current_rankings = []
 
     def search(self, query):
         topk = 10
-        processor = self.bow_processor if self.option_var.get() == "BoW" else self.glove_processor
+        if self.option_var.get() == "BoW":
+            processor = self.bow_processor
+        elif self.option_var.get() == "GloVe":
+            processor = self.glove_processor
+        else:
+            processor = self.bert_processor
+        #processor = self.bow_processor if self.option_var.get() == "BoW" else self.glove_processor
         self.current_rankings = processor.ranking(query, topk)
         self.result_box.update(self.current_rankings, processor.corpus)
+    #
+    # def show_document(self, index):
+    #     processor = self.bow_processor if self.option_var.get() == "BoW" else self.glove_processor
+    #     doc_idx, score = self.current_rankings[index]
+    #     content = processor.corpus[doc_idx]
+    #     self.document_display.update(f"Document {doc_idx}", content, score)
 
     def show_document(self, index):
-        processor = self.bow_processor if self.option_var.get() == "BoW" else self.glove_processor
+        if self.option_var.get() == "BoW":
+            processor = self.bow_processor
+        elif self.option_var.get() == "GloVe":
+            processor = self.glove_processor
+        else:
+            processor = self.bert_processor
+
         doc_idx, score = self.current_rankings[index]
         content = processor.corpus[doc_idx]
         self.document_display.update(f"Document {doc_idx}", content, score)
+
 
 class SearchBar(tk.Frame):
     def __init__(self, parent, search_callback):
