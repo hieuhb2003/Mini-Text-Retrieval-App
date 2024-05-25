@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 from datasets import load_dataset
-from BoW import BoWProcessor
-from GLOVE import GloVeProcessor
-from Bert_Model import BertProccessor
+from model.BoW import BoWProcessor
+from model.GLOVE import GloVeProcessor
+from model.BERT import BertProccessor
 
 app = Flask(__name__)
 

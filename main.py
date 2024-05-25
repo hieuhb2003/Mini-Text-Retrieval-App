@@ -1,8 +1,8 @@
 import tkinter as tk
 from datasets import load_dataset
-from BoW import BoWProcessor
-from GLOVE import GloVeProcessor
-from Bert_Model import BertProccessor
+from model.BoW import BoWProcessor
+from model.GLOVE import GloVeProcessor
+from model.BERT import BertProccessor
 
 class App(tk.Tk):
     def __init__(self):
@@ -17,7 +17,7 @@ class App(tk.Tk):
 
         self.option_var = tk.StringVar(value="BoW")
 
-        self.option_menu = tk.OptionMenu(self.left_frame, self.option_var, "BoW", "GloVe", "Bert")
+        self.option_menu = tk.OptionMenu(self.left_frame, self.option_var, "BoW", "GloVe", "BERT")
         self.option_menu.pack(fill=tk.X, padx=5, pady=5)
 
         self.search_bar = SearchBar(self.left_frame, self.search)
